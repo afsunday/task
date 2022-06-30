@@ -19,7 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::prefix('v1')->group(function () {
-    Route::post('/posts/create', [\Illuminate\Http\Controllers\PostController::class, 'create']);
-    Route::post('/subscribe', [\Illuminate\Http\Controllers\SubscribeController::class, 'create']);
-});
+Route::get('/posts/{post}', [App\Http\Controllers\PostController::class, 'index']);
+Route::post('/posts/create', [App\Http\Controllers\PostController::class, 'create']);
+Route::post('/subscribe', [App\Http\Controllers\SubscribeController::class, 'create']);

@@ -11,14 +11,16 @@ class LetterMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $post;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($post)
     {
-        //
+        $this->post = $post;
     }
 
     /**
@@ -28,6 +30,10 @@ class LetterMailable extends Mailable
      */
     public function build()
     {
-        return $this->view('welcome');
+        return $this->subject($this->post->title)
+        ->view('email')
+        ->with([
+            'post' => $this->post
+        ]);
     }
 }

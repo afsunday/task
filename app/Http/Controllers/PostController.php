@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Validator;
 class PostController extends Controller
 {
     /**
+     * Get a post
+     */
+    public function index(Post $post)
+    {
+        return response()->json($post, 200);
+    }
+
+    /**
      * create post
      */
     public function create(Request $request)
@@ -25,7 +33,14 @@ class PostController extends Controller
         }
 
         try {
-            $post = Post::create($validator->validated());
+            $dir = 'public/photos/'; 
+            $name = bin2hex(random_bytes(10)) .'.'. $request->image->getClientOriginalExtension();
+            $request->image->storeAs($dir, $name);
+
+            $validated = $validator->validated();
+            $validated['image'] = $name;
+            $post = Post::create($validated);
+
             return response()->json($post, 201);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

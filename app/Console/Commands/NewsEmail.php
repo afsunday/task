@@ -2,16 +2,17 @@
 
 namespace App\Console\Commands;
 
+use App\Http\Actions\Newsletter as ActionsNewsletter;
 use Illuminate\Console\Command;
 
-class Newsletter extends Command
+class NewsEmail extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'send:email';
+    protected $signature = 'send:newsLetter';
 
     /**
      * The console command description.
@@ -27,6 +28,7 @@ class Newsletter extends Command
      */
     public function handle()
     {
-        return 0;
+        $mail = new ActionsNewsletter();
+        $mail->send();
     }
 }

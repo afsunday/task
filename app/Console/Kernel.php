@@ -25,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('send:newsLetter')->everyDay();
+        $schedule->command('send:newsLetter')->everyMinute();
     }
 
     /**
